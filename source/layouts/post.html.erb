@@ -1,0 +1,13 @@
+<% wrap_layout :layout do %>
+  <section>
+    <p style="font-size:.8em;"><a href="/">&lt;- home</a></p>
+
+    <h1><%= current_page.title %></h1>
+    <div class="meta">
+      <time><%= current_page.date.strftime('%b %e, %Y') %></time>
+      <!--<span class="tags">Tags: <%= current_page.tags.join(', ') %></span>-->
+    </div>
+
+    <%= yield %>
+  </section>
+<% end %>
