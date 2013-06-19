@@ -7,7 +7,7 @@ gem 'middleman', '~>3.1.1'
 # Live-reloading plugin
 gem 'middleman-livereload', '~> 3.1.0'
 gem 'middleman-blog'
-gem 'middleman-gh-pages'
+gem "middleman-deploy", "~> 0.0.12"
 
 gem 'rake'
 gem 'therubyracer' #Less dependency

@@ -51,10 +51,15 @@ set :images_dir, 'assets/images'
 activate :blog do |blog|
   blog.prefix     = 'posts/'
   blog.layout     = 'post'
-  blog.permalink  = ":year/:month/:day/:title"
-  blog.sources    = "post/:title.html"
+  blog.permalink  = ':year/:month/:day/:title'
+  blog.sources    = 'post/:title.html'
   blog.default_extension = '.md'
   blog.taglink    = 'tags/:tag'
+end
+
+activate :deploy do |deploy|
+  deploy.method = :git
+  deploy.branch = 'gh-pages'
 end
 
 Time.zone = 'America/Chicago'
