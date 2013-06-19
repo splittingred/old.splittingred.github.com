@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>shaun mccormick :: </title>
+
+    <link href="/assets/css/styles-67539923.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/pygment_trac-2808c9de.css" media="screen" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+
+        <h2 class="name"><a href="/">shaun mccormick</a></h2>
+        <p class="tagline">programming and software architecture</p>
+
+        <ul class="social">
+        <li><a href="http://splittingred.s3.amazonaws.com/resume.pdf">resume</a> (in <a href="https://github.com/splittingred/resume">gem form</a>)</li>
+        <li><a href="http://linkedin.com/in/splittingred">linkedin</a></li>
+        <li><a href="https://github.com/splittingred">github</a></li>
+        <li><a href="http://twitter.com/splittingred">@splittingred</a></li>
+        </ul>
+
+        <!--
+        <h3>Categories</h3>
+        <ul class="tags">
+          
+            <li><a href="tags/modx">modx</a></li>
+          
+            <li><a href="tags/extras">extras</a></li>
+          
+            <li><a href="tags/wordpress">wordpress</a></li>
+          
+            <li><a href="tags/middleman">middleman</a></li>
+          
+            <li><a href="tags/ruby">ruby</a></li>
+          
+            <li><a href="tags/markdown">markdown</a></li>
+          
+        </ul>
+        -->
+      </header>
+          <section>
+    <p style="font-size:.8em;"><a href="/">&lt;- home</a></p>
+
+    <h1>A New Extras Section</h1>
+    <div class="meta">
+      <time>Feb 17, 2011</time>
+      <!--<span class="tags">Tags: modx, extras</span>-->
+    </div>
+
+    <p>The old site&rsquo;s Extras section was a massive undertaking - we wanted a scalable solution, but had little time to develop it. So we threw something together, and integrated it into MODX Revolution so that you could download straight from the website to your Revo instance. It was pretty neat at the time, but there were some definite drawbacks. The search stunk. Loading wasn&rsquo;t nearly as fast as we&rsquo;d have liked it to be. The star rating system was, well, meh. It wasn&rsquo;t exactly pretty, either.</p>
+
+<p>So, after the new site launch, we&rsquo;ve decided to spend some time working on it. In fact, that&rsquo;s about all I&rsquo;ve been doing for the past 2 weeks. And boy, am I excited about it. We wanted the following to happen:</p>
+
+<ul>
+<li>Styled and fit into the design of the new <a href="http://modx.com">modx.com</a>.</li>
+<li>A much more powerful, easy to navigate search.</li>
+<li>Some kind of flag for &ldquo;Featured&rdquo; and &ldquo;Solid&rdquo; Extras, which are Extras being featured or audited as solid packages by the core team.</li>
+<li>Weighted search results so we can promote certain Extras if needed.</li>
+<li>A much easier submission process. The current one is confusing, and not easy to do.</li>
+<li>Integration into our modx.com SSO-driven backend system, so we can do all kinds of fun things with the data (like upcoming awards/badges/xp etc).</li>
+<li>Get rid of the star rating system and move to a simpler like/unlike system.</li>
+<li>Better stats!</li>
+</ul>
+
+<p>First off, here&rsquo;s a sneak peek of the new browsing view, where you can browse
+categories and search from:</p>
+
+<p><a href="http://splittingred.s3.amazonaws.com/blog/old/extras-browse.351d13229ee149015ce475fb9dd0b4d156.png" rel="prettyPhoto[gal]"><img src="http://splittingred.s3.amazonaws.com/blog/old/extras-browse.351d13229ee149015ce475fb9dd0b4d156.png" /></a></p>
+
+<p>Obviously, it&rsquo;s a bit rough, but we&rsquo;re ironing out the issues now. As you can see, we&rsquo;ve added direct download links straight on the search page - no longer do you need to drill in to download an Extra. Also, we&rsquo;ve fixed the search so that searching for &ldquo;If&rdquo; now returns the If Extra on the first result, and pagination actually shows the correct number of results. Joy!</p>
+
+<p>If you do decide to drill down, however, you&rsquo;ll get something like this view:</p>
+
+<p><a href="http://splittingred.s3.amazonaws.com/blog/old/extras-details.351d13229ee149015ce475fb9dd0b4d156.png" rel="prettyPhoto[gal]"><img src="http://splittingred.s3.amazonaws.com/blog/old/extras-details.351d13229ee149015ce475fb9dd0b4d156.png" /></a></p>
+
+<p>One big, clear button for your Downloads. This does mean we&rsquo;ll be restricting Extras to one file for downloads, but trust us - this will make the whole process much simpler. We&rsquo;ve also added Like and Tweet buttons, a more coherent tabbed interface (built on jQuery tabs), and a new feature: &ldquo;Changelog&rdquo;. Here you can put the latest changes to your Extra&rsquo;s Version. This will make it much easier for people to see what&rsquo;s new on your Extra.</p>
+
+<p>Not to mention a nice gallery view for your screenshots:</p>
+
+<p><a href="http://splittingred.s3.amazonaws.com/blog/old/extras-ss.351d13229ee149015ce475fb9dd0b4d156.png" rel="prettyPhoto[gal]"><img src="http://splittingred.s3.amazonaws.com/blog/old/extras-ss.351d13229ee149015ce475fb9dd0b4d156.png" /></a></p>
+
+<p>And of course, the previous versions view and screenshots for your Extra will still be around. You&rsquo;ll be able to mark Versions as &lsquo;active&rsquo; or &lsquo;inactive&rsquo; now, so if you need to quickly take a Version down temporarily, you&rsquo;ll be able to do so.</p>
+
+<p>Also, we&rsquo;re adding a &ldquo;Deprecate Prior Versions&rdquo; option that is checked by default on your Submit New Version page, which will automatically deprecate all your prior versions for that Extra after your new Version is approved. This will be extremely useful, as deprecated versions dont show in search results, and will keep your listings nice and clean.</p>
+
+<p>We&rsquo;ve also improved the speed big time (the DB model is now using rails/mongodb/solr connected to via the built-in REST services in Revolution - it&rsquo;s pretty fancy.). You&rsquo;ll see pages load way-fast, and be a ton more scalable as MODX contributions grow.</p>
+
+<p>Finally, this will all integrate into your modx.com account. You&rsquo;ll be able to see the Extras you&rsquo;ve submitted, and all of this will count toward your account. We&rsquo;ll be introducing even more cool stuff on modx.com as the year progresses - and let&rsquo;s just say contributions (including Extras, rtfm docs edits, downloads, forum posts, showcase site submissions, job listings, help wanted ads, donations, etc) will have a &ldquo;measurable quality&rdquo; soon enough. ;)</p>
+
+<p>Oh, and we&rsquo;re still developing the next branch for Revolution, 2.1. We&rsquo;ve already <a href="https://github.com/modxcms/revolution/commit/d964b98cad2ffe99f9344c39e62706ce08b787cb">vastly improved the caching system</a>, and added TV Input Options which allow you to restrict or require input values to TVs, and add a slew of <a href="https://img.skitch.com/20110120-kmqf8raa6e1ag53fytuyjb7115.jpg">new options</a> to them (another blog post on that later). If you&rsquo;re not a <a href="http://modx.com/partners/">MODX Partner</a> yet, let&rsquo;s just say there&rsquo;s lots of incentives coming down the pipes. Thanks!</p>
+
+  </section>
+
+
+      <footer>
+        <p>&copy; 2010-2013 shaun mccormick. all rights reserved.</p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix-f7763733.js" type="text/javascript"></script>
+
+  </body>
+</html>
