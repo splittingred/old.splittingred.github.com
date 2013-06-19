@@ -16,15 +16,19 @@
     <div class="wrapper">
       <header>
 
+        <%= image_tag 'shaun.jpg', :width => '120', :class => 'avatar' %>
         <h2 class="name"><a href="/">shaun mccormick</a></h2>
         <p class="tagline">programming and software architecture</p>
 
         <ul class="social">
-        <li><a href="http://splittingred.s3.amazonaws.com/resume.pdf">resume</a> (in <a href="https://github.com/splittingred/resume">gem form</a>)</li>
-        <li><a href="http://linkedin.com/in/splittingred">linkedin</a></li>
-        <li><a href="https://github.com/splittingred">github</a></li>
-        <li><a href="http://twitter.com/splittingred">@splittingred</a></li>
+          <li><a href="http://splittingred.s3.amazonaws.com/resume.pdf">resume</a> (in <a href="https://github.com/splittingred/resume">gem form</a>)</li>
+          <li><a href="http://linkedin.com/in/splittingred">linkedin</a></li>
+          <li><a href="https://github.com/splittingred">github</a></li>
+          <li><a href="http://twitter.com/splittingred">@splittingred</a></li>
+          <li><a href="mailto:<%= obscure_email('splittingred@gmail.com') %>">email</a></li>
         </ul>
+
+        <a class="button" href="mailto:<%= obscure_email('splittingred@gmail.com') %>">Contact Me</a>
 
         <!--
         <h3>Categories</h3>
@@ -38,7 +42,7 @@
         <%= yield %>
 
       <footer>
-        <p>&copy; 2010-2013 shaun mccormick. all rights reserved.</p>
+        <p>&copy; 2010-2013 <a href="mailto:<%= obscure_email('splittingred@gmail.com') %>">shaun mccormick</a>. all rights reserved.</p>
       </footer>
     </div>
     <%= javascript_include_tag 'scale.fix' %>

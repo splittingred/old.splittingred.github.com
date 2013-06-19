@@ -66,11 +66,20 @@ end
 Time.zone = 'America/Chicago'
 
 # Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+
+helpers do
+  def obscure_email(email = nil)
+    return nil if email.nil? #Don't bother if the parameter is nil.
+    lower = ('a'..'z').to_a
+    upper = ('A'..'Z').to_a
+    s = email.split('').map do |char|
+      output = lower.index(char) + 97 if lower.include?(char)
+      output = upper.index(char) + 65 if upper.include?(char)
+      output ? "&##{output};" : (char == '@' ? '@' : char)
+    end
+    s.join
+  end
+end
 
 activate :directory_indexes
 activate :syntax
