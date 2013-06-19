@@ -1,13 +1,12 @@
 <!doctype html>
 <html>
-  <base href="<%= url_for('/') %>" />
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>shaun mccormick</title>
+    <title>shaun mccormick :: <%= yield_content :generic_title %></title>
 
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/pygment_trac.css">
+    <%= stylesheet_link_tag 'styles.css' %>
+    <%= stylesheet_link_tag 'pygment_trac.css' %>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -42,7 +41,7 @@
         <p>&copy; 2010-2013 shaun mccormick. all rights reserved.</p>
       </footer>
     </div>
-    <script src="assets/js/scale.fix.js"></script>
+    <%= javascript_include_tag 'scale.fix' %>
 
   </body>
 </html>
