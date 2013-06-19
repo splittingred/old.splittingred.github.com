@@ -1,0 +1,42 @@
+
+<section>
+<p style="font-size:.8em;"><a href="/portfolio">&lt;- portfolio</a></p>
+
+  <h1>SiphonLabs / MODX Cloud</h1>
+<%= image_tag 'portfolio/sl-ss.png', :width => '500', :class => 'avatar' %>
+
+
+
+  <p>SiphonLabs came out of <a href="<% link_to('portfolio/modx') %>">MODX, LLC</a>, with the goal of providing a unique
+  approach to the ever-present life cycle management problem. SiphonLabs, through its snapshot technology, had found a
+  solution to allow users the ability to stage their sites and present changes while keeping the live sites intact; as
+  well as allowing the user to create site templates that could be snapshotted en masse into new builds.</p>
+
+  <p>I architected most of the system, including its API, billing, admin and dashboard applications. The "Agent" system
+  behind the snapshot and Cloud (site) deployment process was co-architected by myself and Kevin Marvin, and was written
+  with a combination of Ruby, Celluloid, Sinatra, 0mq, and other tech. At its peak, the system handled thousands of
+  requests per second through its distributed messaging system, priority queue implementation, and threaded worker
+  architecture.</p>
+
+  <p>The unified API layer, built in PHP and <a href="http://xpdo.org/">xPDO</a>, was built also to scale to become a
+    full public API system, as all the various apps (including the admin and agent tools) already used it in their
+    day-to-day operations. The system as a whole had over a thousand rspec and phpunit-driven tests written and operational
+    through a Jenkins continuous integration system.</p>
+
+  <p>During my time there, I built with the following tech:</p>
+
+  <ul>
+    <li>PHP</li>
+    <li>Ruby/Ruby on Rails</li>
+    <li>MongoDB</li>
+    <li>ExtJS/jQuery/JavaScript</li>
+    <li>CSS/SASS</li>
+    <li>0mq</li>
+    <li>Celluoid</li>
+    <li>Sinatra</li>
+    <li>MySQL/MSSQL</li>
+    <li>Bash Scripting</li>
+  </ul>
+
+
+</section>

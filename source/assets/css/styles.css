@@ -260,3 +260,30 @@ article p.teaser {
 .button:hover, .button:focus {
     background-color: #d0d0d0;
 }
+
+.center-text {
+    text-align: center;
+}
+
+
+.card {
+    float: left;
+    width: 128px;
+    padding: 0 20px;
+}
+.card a {
+
+}
+.card img {
+    width:128px;
+    border: none;
+    margin: 0;
+    border: 4px solid #ddd;
+}
+.card .info {
+    font-size: 18px;
+    margin: 0;
+    padding: 10px 0;
+    text-align: center;
+}
+.clear { clear: both; }
