@@ -66,7 +66,8 @@ wanted something I could quickly deploy up and get adding content to fast.</p>
 
 <p>I&rsquo;ve been doing a lot of Ruby coding recently, and decided, why not make my blog out of it? After toying around with
 <a href="http://jekyllrb.com/">Jekyll</a> for a while, I eventually settled on <a href="http://middlemanapp.com/">MiddleMan</a>, an easy build
-and deploy tool that I could throw a site up quickly via a Git repository.</p>
+and deploy tool that I could throw a site up quickly via a Git repository. Plus, MM automatically compresses my CSS/JS,
+handles post meta and dates, and does tagging for me.</p>
 
 <p>I redesigned the site with a very, very simple and minimalistic design (still a WIP, of course). I wanted content to be
 king on the site, and didn&rsquo;t want to have to think about design trends over the next few years. Choosing the plain
@@ -78,11 +79,17 @@ design enabled me to concentrate more on <em>what</em> I want to write, rather t
 which I&rsquo;ve been using for years in wikis and readmes, but haven&rsquo;t full-out blogged with it yet. MiddleMan has a nice
 integration with Markdown, and all my blog posts are now just simple Markdown syntax.</p>
 
+<p>I&rsquo;m also using middleman-syntax for code highlighting, which was as simple as throwing in this to my MiddleMan config:</p>
+<pre class="highlight text">activate :syntax
+</pre>
 <h2>Deploying</h2>
 
 <p>Deploying in MiddleMan is absurdly simple. Once I&rsquo;ve got my post the way I want it, previewable via MiddleMan&rsquo;s dev
-server, I just load up terminal and type &ldquo;middleman build&rdquo;. It automatically builds the site down to a static page, and
-then throws it up into my <a href="https://github.com/splittingred/splittingred.github.com">GitHub repository</a>.</p>
+server, I just load up terminal and type:</p>
+<pre class="highlight text">middleman build
+</pre>
+<p>It then automatically builds the site down to a static page, and then throws it up into my
+<a href="https://github.com/splittingred/splittingred.github.com">GitHub repository</a>.</p>
 
 <p>For now, I&rsquo;m still hosting on my server, but I may move to take advantage of GitHub&rsquo;s Pages for hosting. Currently
 on my server I have a simple cronjob that updates the local git repo every minute, keeping my site running with some
