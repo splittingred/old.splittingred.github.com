@@ -28,6 +28,7 @@
     <orderEntry type="library" scope="PROVIDED" name="middleman (v3.1.1, RVM: ruby-2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="middleman-blog (v3.2.0, RVM: ruby-2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="middleman-core (v3.1.1, RVM: ruby-2.0.0-p195) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="middleman-gh-pages (v0.0.2, RVM: ruby-2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="middleman-livereload (v3.1.0, RVM: ruby-2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="middleman-more (v3.1.1, RVM: ruby-2.0.0-p195) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="middleman-sprockets (v3.1.2, RVM: ruby-2.0.0-p195) [gem]" level="application" />
