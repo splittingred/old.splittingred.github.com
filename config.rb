@@ -60,6 +60,7 @@ end
 activate :deploy do |deploy|
   deploy.method = :git
   deploy.branch = 'gh-pages'
+  deploy.after_build = true
 end
 
 Time.zone = 'America/Chicago'
