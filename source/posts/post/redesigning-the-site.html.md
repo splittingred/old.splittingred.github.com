@@ -17,7 +17,8 @@ wanted something I could quickly deploy up and get adding content to fast.
 
 I've been doing a lot of Ruby coding recently, and decided, why not make my blog out of it? After toying around with
 [Jekyll](http://jekyllrb.com/) for a while, I eventually settled on [MiddleMan](http://middlemanapp.com/), an easy build
-and deploy tool that I could throw a site up quickly via a Git repository.
+and deploy tool that I could throw a site up quickly via a Git repository. Plus, MM automatically compresses my CSS/JS,
+handles post meta and dates, and does tagging for me.
 
 I redesigned the site with a very, very simple and minimalistic design (still a WIP, of course). I wanted content to be
 king on the site, and didn't want to have to think about design trends over the next few years. Choosing the plain
@@ -29,11 +30,23 @@ I also wanted to be able to type posts fast, without having to worry about marku
 which I've been using for years in wikis and readmes, but haven't full-out blogged with it yet. MiddleMan has a nice
 integration with Markdown, and all my blog posts are now just simple Markdown syntax.
 
+I'm also using middleman-syntax for code highlighting, which was as simple as throwing in this to my MiddleMan config:
+
+```
+activate :syntax
+```
+
 ## Deploying
 
 Deploying in MiddleMan is absurdly simple. Once I've got my post the way I want it, previewable via MiddleMan's dev
-server, I just load up terminal and type "middleman build". It automatically builds the site down to a static page, and
-then throws it up into my [GitHub repository](https://github.com/splittingred/splittingred.github.com).
+server, I just load up terminal and type:
+
+```
+middleman build
+```
+
+It then automatically builds the site down to a static page, and then throws it up into my
+[GitHub repository](https://github.com/splittingred/splittingred.github.com).
 
 For now, I'm still hosting on my server, but I may move to take advantage of GitHub's Pages for hosting. Currently
 on my server I have a simple cronjob that updates the local git repo every minute, keeping my site running with some
