@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>shaun mccormick :: </title>
+
+    <link href="/assets/css/styles-ccb7db3d.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/pygment_trac-2808c9de.css" media="screen" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+
+        <img width="120" class="avatar" src="/assets/images/shaun-19cf98a9.jpg" />
+        <h2 class="name"><a href="/">shaun mccormick</a></h2>
+        <p class="tagline">programming and software architecture</p>
+
+        <p></p>
+
+        <ul class="social">
+          <li><a href="/portfolio/">portfolio</a></li>
+          <li><a href="http://splittingred.s3.amazonaws.com/resume.pdf">resume</a> (in <a href="https://github.com/splittingred/resume">gem form</a>)</li>
+          <li><a href="http://linkedin.com/in/splittingred">linkedin</a></li>
+          <li><a href="https://github.com/splittingred">github</a></li>
+          <li><a href="http://twitter.com/splittingred">@splittingred</a></li>
+          <li><a href="mailto:&#115;&#112;&#108;&#105;&#116;&#116;&#105;&#110;&#103;&#114;&#101;&#100;@&#103;&#109;&#97;&#105;&#108;.&#99;&#111;&#109;">email</a></li>
+        </ul>
+
+        <a class="button" href="mailto:&#115;&#112;&#108;&#105;&#116;&#116;&#105;&#110;&#103;&#114;&#101;&#100;@&#103;&#109;&#97;&#105;&#108;.&#99;&#111;&#109;">Contact Me</a>
+
+        <!--
+        <h3>Categories</h3>
+        <ul class="tags">
+          
+            <li><a href="tags/modx">modx</a></li>
+          
+            <li><a href="tags/extras">extras</a></li>
+          
+            <li><a href="tags/wordpress">wordpress</a></li>
+          
+            <li><a href="tags/commenting">commenting</a></li>
+          
+            <li><a href="tags/recaptcha">recaptcha</a></li>
+          
+            <li><a href="tags/middleman">middleman</a></li>
+          
+            <li><a href="tags/ruby">ruby</a></li>
+          
+            <li><a href="tags/markdown">markdown</a></li>
+          
+            <li><a href="tags/tagging">tagging</a></li>
+          
+            <li><a href="tags/taxonomy">taxonomy</a></li>
+          
+            <li><a href="tags/agile">agile</a></li>
+          
+            <li><a href="tags/community">community</a></li>
+          
+        </ul>
+        -->
+      </header>
+          <section>
+    <p style="font-size:.8em;"><a href="/">&lt;- home</a></p>
+
+    <h1>Tagging Blog Posts in Revolution</h1>
+    <div class="meta">
+      <time>May  4, 2010</time>
+      <!--<span class="tags">Tags: modx, tagging, taxonomy</span>-->
+    </div>
+
+    <p><strong>Note: Since I wrote this, I&rsquo;ve released <a href="http://modxcms.com/extras/package/691" target="_blank">tagLister 1.0.0-pl</a>, which actually has both &lsquo;tolinks&rsquo; and &lsquo;getResourcesTag&rsquo; packaged in with it, so you wont need to manually add these snippets - just download the tagLister Extra.</strong></p>
+
+<p>This is basically how I setup tagging for this blog; I dont purport to state that this is the <em>only</em> way to do tagging. I know for a fact <a href="http://jasoncoward.com/">Jason</a> does his tagging differently. However, for those interested, I thought I&rsquo;d post my method.</p>
+
+<p>To do tagging in Revo using this approach, you&rsquo;ll need to have downloaded the following snippets: &ldquo;getPage&rdquo; and &ldquo;getResources&rdquo;. These snippets are vital for any blog, for that matter.</p>
+
+<h4>Creating the Tags TV</h4>
+
+<p>First off, you&rsquo;ll need to create a TV called &lsquo;tags&rsquo;, and assign it to your blog post template. (Assuming you have a separate template for blog posts.) Make it a textfield, with no output widgets or renders.</p>
+
+<h4>Adding the Tags to Your Chunk</h4>
+
+<p>Now, find your &lsquo;blogPost&rsquo; chunk, or whatever chunk you are using to iterate a list of posts using getResources. Put this line wherever you want the tags to show up:
+
+<pre class="brush: html">
+[[+tv.tags:notempty=`<span class="tags">Tags: [[!tolinks? &items=`[[+tv.tags]]` &key=`tag`]]</span>`]]
+</pre>
+
+<p>Okay, a few things here. One, the +tv.tags placeholder represents in getResources your TV called &lsquo;tags&rsquo; which we created earlier. Next, you&rsquo;ll notice that we only show the &lsquo;tags&rsquo; span if tags actually has content. Third, we have a snippet we&rsquo;re running called &lsquo;tolinks&rsquo;. This snippet makes tags out of the links.</p>
+
+<h4>Creating the tolinks Snippet</h4>
+
+<p>Go ahead and create the snippet called &lsquo;tolinks&rsquo; and paste this code in:</p>
+
+<pre class="brush: php">
+/**
+ * Creates links out of tags
+ */
+$inputDelim = $modx->getOption('inputDelim',$scriptProperties,',');
+$outputDelim = $modx->getOption('outputDelim',$scriptProperties,', ');
+$key = $modx->getOption('key',$scriptProperties,'tag');
+$target = $modx->getOption('target',$scriptProperties,$modx->resource->get('id'));
+
+$items = explode($inputDelim,$items);
+$tags = array();
+foreach ($items as $item) {
+    $item = trim($item);
+    $url = $modx->makeUrl($target,'','?'.$key.'='.$item);
+    $url = str_replace(' ','+',$url);
+    $tags[] = '<a href="'.$url.'">'.$item.'</a>';
+}
+
+return trim(implode($outputDelim,$tags),$outputDelim);
+</pre>
+
+<p>Basically, this code takes an input and splits it by a delimiter, makes links from it, and then outputs it back, separated by an output delimiter. So, in our tags instance, it will take in any tags the poster puts into the &lsquo;tags&rsquo; TV, split them by commas, and then post them back out with link tags added.</p>
+
+<p>It also allows you to specify *where* that URL goes to, via the &lsquo;target&rsquo; property. Since I want to point it to my home page (resource ID 1), I&rsquo;ll pass 1 as the &lsquo;target&rsquo; property. However, if you want it to point somewhere else, either change the default value or pass that Resource ID as a &lsquo;target&rsquo; parameter into the &lsquo;tolinks&rsquo; snippet call.</p>
+
+<p>We&rsquo;re almost done! Now we&rsquo;re just going to add a wrapper snippet around getPage and getResources.</p>
+
+<h4>Adding the getResourcesTag Wrapper Snippet</h4>
+
+<p>Okay, so we&rsquo;ve got our system showing the contents of our TV in clickable tag format. But we want stuff to actually *happen* when we click on those tags. We want getResources to filter by the tags we specified. So, we&rsquo;re going to create a &lsquo;wrapper&rsquo; snippet that handles this for us.</p>
+
+<p>Go ahead and make a snippet called &lsquo;getResourcesTag&rsquo; and paste the following into it:</p>
+
+<pre class="brush: php;">
+/**
+ * Wrap the getPage/getResources call to implement tagging
+ */
+if (!empty($_GET['tag'])) {
+    $scriptProperties['tvFilters'] = 'tags==%'.$_GET['tag'].'%';
+}
+$elementObj = $modx->getObject('modSnippet', array('name' => 'getPage'));
+if ($elementObj) {
+    $elementObj->setCacheable(false);
+    $output = $elementObj->process($scriptProperties);
+}
+return $output;
+</pre>
+
+<p>Note that all this does is pre-set the &lsquo;tvFilters&rsquo; property for getPage (which wraps getResources) with the REQUEST variable &lsquo;tag&rsquo;.</p>
+
+<p>So, in our Resource that we want to display a list of blog posts, assuming we&rsquo;ve <a href="[[~15]]">set the blog up in a good structure</a>, we can do the following getResourcesTag call:</p>
+
+<pre class="brush: html">
+[[!getResourcesTag?
+  &parents=`8,9`
+  &hideContainers=`1`
+  &depth=`2`
+  &includeTVs=`1`
+  &tpl=`blogPost`
+  &elementClass=`modSnippet`
+  &element=`getResources`
+  &pageVarKey=`page`
+]]
+[[!+page.nav:notempty=`
+<div class="paging">
+<ul class="pageList">
+  [[!+page.nav]]
+</ul>
+</div>
+]]
+</pre>
+
+<p>You can put the properties on the getResourcesTag call in a Property Set as well, to make it so you can call this snippet from anywhere on your site.</p>
+
+<p>And we&rsquo;re done! Instant tagging for our blog:</p>
+
+<p><img src="http://splittingred.s3.amazonaws.com/blog/old/tagging-tv.png" alt="the tags tv" /></p>
+
+  </section>
+
+
+      <footer>
+        <p>&copy; 2010-2013 <a href="mailto:&#115;&#112;&#108;&#105;&#116;&#116;&#105;&#110;&#103;&#114;&#101;&#100;@&#103;&#109;&#97;&#105;&#108;.&#99;&#111;&#109;">shaun mccormick</a>. all rights reserved.</p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix-f7763733.js" type="text/javascript"></script>
+
+  </body>
+</html>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-13101242-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>

@@ -64,25 +64,48 @@
         </ul>
         -->
       </header>
-        <p>Copyright &copy; HTML5 Boilerplate</p>
+          <section>
+    <p style="font-size:.8em;"><a href="/">&lt;- home</a></p>
 
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the &ldquo;Software&rdquo;), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:</p>
+    <h1>ReCaptcha Comments</h1>
+    <div class="meta">
+      <time>May 18, 2010</time>
+      <!--<span class="tags">Tags: modx, commenting, recaptcha</span>-->
+    </div>
 
-<p>The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.</p>
+    <p>This site&rsquo;s comments section is powered by <a href="http://modxcms.com/extras/package/538">Quip</a>, a commenting solution I wrote for MODx Revolution. Some of you have asked how I got reCaptcha support working with it. Well, to be honest, reCaptcha support is built-in to Quip.</p>
 
-<p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.</p>
+<p>First off, Quip requires 2 calls - one for displaying the comments for a thread:</p>
+
+<pre class="brush: xhtml">
+[[!Quip?
+  &thread=`blog-post-[[*id]]`
+  &replyResourceId=`19`
+]]
+</pre>
+
+<p>This call in my &lsquo;BlogTemplate&rsquo; template tells me to grab all comments within the thread for the current Resource. There&rsquo;s also a &lsquo;replyResourceId&rsquo; value which is just an ID of a Resource that has just a Quip call in it (it&rsquo;s for replying to threaded posts). Then, there&rsquo;s a Quip call for displaying the reply form:</p>
+
+<pre class="brush: xhtml;">
+[[!QuipReply?
+   &thread=`blog-post-[[*id]]`
+   &recaptcha=`1`
+   &notifyEmails=`-emailremoved-`
+]]
+</pre>
+
+<p>This call tells Quip to display the Reply form for the specified thread, and notify me by email when a reply is posted. Note all I did to enable reCaptcha support is pass in a parameter called &lsquo;recaptcha&rsquo; and set it to 1. Simple as that. Quip handles the rest.</p>
+
+<p>The only other thing I had to do was set a few System Settings that had to do with my public and private reCaptcha API keys:</p>
+
+<ul>
+<li>recaptcha.private_key</li>
+<li>recaptcha.public_key</li>
+</ul>
+
+<p>And then I set &lsquo;recaptcha.use_ssl&rsquo; to &lsquo;Yes&rsquo; for extra security.</p>
+
+  </section>
 
 
       <footer>
