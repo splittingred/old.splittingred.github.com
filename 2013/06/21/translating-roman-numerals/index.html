@@ -84,61 +84,102 @@
           <section class="post">
     <p style="font-size:.8em;"><a href="/">&lt;- home</a></p>
 
-    <h1>Redesigning the Site</h1>
+    <h1>Translating Roman Numerals</h1>
     <div class="meta">
-      <time>Jun 19, 2013 </time>
-      <span class="comments">(<a href="/2013/06/19/redesigning-the-site/#disqus_thread" data-disqus-identifier="/2013/06/19/redesigning-the-site/"></a>)</span>
-      <!--<span class="tags">Tags: middleman, ruby, markdown</span>-->
+      <time>Jun 21, 2013 </time>
+      <span class="comments">(<a href="/2013/06/21/translating-roman-numerals/#disqus_thread" data-disqus-identifier="/2013/06/21/translating-roman-numerals/"></a>)</span>
+      <!--<span class="tags">Tags: php, roman, math, programming</span>-->
     </div>
 
-    <p>Well, I did it. I finally decided to redo my site. Not only did I move to a new design, I went a few steps further.</p>
+    <p>Earlier today I was packing up a great book on the decline of the Roman Empire, called
+<a href="http://www.amazon.com/The-Inheritance-Rome-Illuminating-400-1000/dp/0143117424">&ldquo;The Inheritance of Rome&rdquo;</a>, of which
+I highly recommend. The author goes into how Rome never really declined, but slowly atrophied, due to a combination of
+decentralizing social structures, the collapse of the Roman transporation system and maintenance of roads, and how
+the inability of Rome to collect proper taxation later on was one of the main catalysts to the fall. Fascinating book.</p>
 
-<h2>Going Static</h2>
+<p>But that&rsquo;s not the point of this article. The book got me thinking; is there a way to convert Roman numerals into
+standard Western numerals? Specifically, could I do this in PHP? Well, why not?</p>
 
-<p>I&rsquo;ve fully moved off of <a href="http://modx.com/">MODX</a>, as it was a bit too much for the tiny site that this was. I love MODX,
-and would still highly recommend it to people building larger or mid-grade sites; however for my small little blog, I
-wanted something I could quickly deploy up and get adding content to fast.</p>
+<h3>Alphabets and Numbers</h3>
 
-<h2>Enter MiddleMan</h2>
-
-<p>I&rsquo;ve been doing a lot of Ruby coding recently, and decided, why not make my blog out of it? After toying around with
-<a href="http://jekyllrb.com/">Jekyll</a> for a while, I eventually settled on <a href="http://middlemanapp.com/">MiddleMan</a>, an easy build
-and deploy tool that I could throw a site up quickly via a Git repository. Plus, MM automatically compresses my CSS/JS,
-handles post meta and dates, and does tagging for me.</p>
-
-<p>I redesigned the site with a very, very simple and minimalistic design (still a WIP, of course). I wanted content to be
-king on the site, and didn&rsquo;t want to have to think about design trends over the next few years. Choosing the plain
-design enabled me to concentrate more on <em>what</em> I want to write, rather than how it is going to look.</p>
-
-<h2>Formatting</h2>
-
-<p>I also wanted to be able to type posts fast, without having to worry about markup. Enter <a href="http://daringfireball.net/projects/markdown/">Markdown</a>,
-which I&rsquo;ve been using for years in wikis and readmes, but haven&rsquo;t full-out blogged with it yet. MiddleMan has a nice
-integration with Markdown, and all my blog posts are now just simple Markdown syntax.</p>
-
-<p>I&rsquo;m also using middleman-syntax for code highlighting, which was as simple as throwing in this to my MiddleMan config:</p>
-<pre class="highlight text">activate :syntax
+<p>Most all of us know the representation for Roman numerals today. I put these into a simple PHP associative array for
+easy mapping:</p>
+<pre class="highlight text">$map = array(
+    &#39;I&#39; =&gt; 1,
+    &#39;V&#39; =&gt; 5,
+    &#39;X&#39; =&gt; 10,
+    &#39;L&#39; =&gt; 50,
+    &#39;C&#39; =&gt; 100,
+    &#39;D&#39; =&gt; 500,
+    &#39;M&#39; =&gt; 1000,
+);
 </pre>
-<h2>Deploying</h2>
-
-<p>Deploying in MiddleMan is absurdly simple. Once I&rsquo;ve got my post the way I want it, previewable via MiddleMan&rsquo;s dev
-server, I just load up terminal and type:</p>
-<pre class="highlight text">middleman build
+<p>Seems simple enough, right? Just a straightforward string-replacement iteration and sum, right? Here&rsquo;s our method:</p>
+<pre class="highlight text">function etTuBrute($str,array $map) {
+    $len = strlen($str);
+    $total = 0;
+    for ($i=0;$i&lt;$len;$i++) {
+        $current = $str[$i];
+        $total += $map[$current];
+    }
+    return $total;
+}
 </pre>
-<p>It then automatically builds the site down to a static page, and then throws it up into my
-<a href="https://github.com/splittingred/splittingred.github.com">GitHub repository</a>.</p>
+<p>So, this makes the following values:</p>
+<pre class="highlight text">echo etTuBrute(&#39;XVI&#39;,$map); // 16
+echo etTuBrute(&#39;MXI&#39;,$map); // 1011
+echo etTuBrute(&#39;LVI&#39;,$map); // 56
+// ...
+echo etTuBrute(&#39;XIX&#39;,$map); // 21 (wrong!)
+echo etTuBrute(&#39;MCDLXXIX&#39;,$map); // 1681 (wrong!)
+</pre>
+<p>Dang. Nope. Those Romans, they were tricksy folk. As most of you probably remember, the way Roman numerals work is that you
+start off with the highest-value character first, and then proceed rightward in descending value. So, XVI is &ldquo;10-5-1&rdquo;,
+which added together makes 16.</p>
 
-<p>For now, I&rsquo;m still hosting on my server, but I may move to take advantage of GitHub&rsquo;s Pages for hosting. Currently
-on my server I have a simple cronjob that updates the local git repo every minute, keeping my site running with some
-nice continuous integration steps. One-step push to deploy. Gotta love it.</p>
+<p>However, there&rsquo;s the little catch they did, which is that if you run into a <em>higher</em> value number after a lower one,
+that means that the lower value number is actually a combination number. In other words, XIX is 19, since X = 10, and
+IX = 9.</p>
+
+<p>So how is this done logically? Well, we still can loop through the characters in the string, but we&rsquo;ll need to do some
+&ldquo;pre-checking&rdquo; to make sure the current character is of the same or higher value than the lesser character. So here&rsquo;s
+our function now:</p>
+<pre class="highlight text">function etTuBrute($str,array $map) {
+    $len = strlen($str);
+    $total = 0;
+    for ($i=0;$i&lt;$len;$i++) {
+        $current = $str[$i];
+        if ($i === $len - 1) {
+            $total += $map[$current];
+        } else {
+            $total += $map[$current] &lt; $map[$str[$i+1]] ? -$map[$current] : $map[$current];
+        }
+    }
+    return $total;
+}
+</pre>
+<p>And our results from earlier:</p>
+<pre class="highlight text">echo etTuBrute(&#39;XVI&#39;,$map); // 16
+echo etTuBrute(&#39;MXI&#39;,$map); // 1011
+echo etTuBrute(&#39;LVI&#39;,$map); // 56
+// ...
+echo etTuBrute(&#39;XIX&#39;,$map); // 19
+echo etTuBrute(&#39;MCDLXXIX&#39;,$map); // 1479
+</pre>
+<p>Great! It works now. So in the loop, we first see if the character position is at the end. If so, we know that it&rsquo;s
+value will always be what it says it is, so we just add it to the sum. If it&rsquo;s not the end, we then go check to see
+what the value of the next character is. If that value is higher, we <em>subtract</em> the current value from the sum, since
+that&rsquo;s really what Roman numerals are doing by prepending the lower-valued character.</p>
+
+<p>This gets us the right values, and a great little translation function! Carpe diem!</p>
 
 
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'splittingredcom'; // required: replace example with your forum shortname
-        var disqus_identifier = '/2013/06/19/redesigning-the-site/';
-        var disqus_title = 'Redesigning the Site';
+        var disqus_identifier = '/2013/06/21/translating-roman-numerals/';
+        var disqus_title = 'Translating Roman Numerals';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {
