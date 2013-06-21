@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>shaun mccormick :: </title>
+
+    <link href="/assets/css/styles-650aa4f5.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/pygment_trac-2808c9de.css" media="screen" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+
+        <img width="120" class="avatar" src="/assets/images/shaun-19cf98a9.jpg" />
+        <h2 class="name"><a href="/">shaun mccormick</a></h2>
+        <p class="tagline">programming and software architecture</p>
+
+        <p></p>
+
+        <ul class="social">
+          <li><a href="/portfolio/">portfolio</a></li>
+          <li><a href="http://splittingred.s3.amazonaws.com/resume.pdf">resume</a> (in <a href="https://github.com/splittingred/resume">gem form</a>)</li>
+          <li><a href="http://linkedin.com/in/splittingred">linkedin</a></li>
+          <li><a href="https://github.com/splittingred">github</a></li>
+          <li><a href="http://twitter.com/splittingred">@splittingred</a></li>
+          <li><a href="mailto:&#115;&#112;&#108;&#105;&#116;&#116;&#105;&#110;&#103;&#114;&#101;&#100;@&#103;&#109;&#97;&#105;&#108;.&#99;&#111;&#109;">email</a></li>
+        </ul>
+
+        <a class="button" href="mailto:&#115;&#112;&#108;&#105;&#116;&#116;&#105;&#110;&#103;&#114;&#101;&#100;@&#103;&#109;&#97;&#105;&#108;.&#99;&#111;&#109;">Contact Me</a>
+
+        <!--
+        <h3>Categories</h3>
+        <ul class="tags">
+          
+            <li><a href="tags/modx">modx</a></li>
+          
+            <li><a href="tags/commenting">commenting</a></li>
+          
+            <li><a href="tags/recaptcha">recaptcha</a></li>
+          
+            <li><a href="tags/tagging">tagging</a></li>
+          
+            <li><a href="tags/taxonomy">taxonomy</a></li>
+          
+            <li><a href="tags/agile">agile</a></li>
+          
+            <li><a href="tags/community">community</a></li>
+          
+            <li><a href="tags/extras">extras</a></li>
+          
+            <li><a href="tags/wordpress">wordpress</a></li>
+          
+            <li><a href="tags/middleman">middleman</a></li>
+          
+            <li><a href="tags/ruby">ruby</a></li>
+          
+            <li><a href="tags/markdown">markdown</a></li>
+          
+            <li><a href="tags/kag">kag</a></li>
+          
+            <li><a href="tags/algorithms">algorithms</a></li>
+          
+        </ul>
+        -->
+      </header>
+          <section class="post">
+    <p style="font-size:.8em;"><a href="/">&lt;- home</a></p>
+
+    <h1>Teams, Partitions, Oh My!</h1>
+    <div class="meta">
+      <time>Jun 20, 2013 </time>
+      <span class="comments">(<a href="/2013/06/20/teams-partitions-oh-my/#disqus_thread"></a>)</span>
+      <!--<span class="tags">Tags: kag, algorithms, ruby</span>-->
+    </div>
+
+    <p>One of my off-work hobbies is <a href="/portfolio/kag-gather">working on a matchmaking system</a> called &ldquo;KAG Gather&rdquo; for the indie
+game <a href="http://kag2d.com/">King Arthur&rsquo;s Gold</a>, where the system sets up &ldquo;matches&rdquo; of 5v5 games for people who are
+awaiting a game in the IRC lobby. The system is fairly feature-complete, having detailed stats and achievements, a
+ranking algorithm, and quite a bit of other neat stuff inside.</p>
+
+<p>However, I&rsquo;ve run into some challenges with the team balancing. Getting even teams automagically, it seems, is a lot
+trickier than you&rsquo;d think.</p>
+
+<h3>NP-what?</h3>
+
+<p>In the world of computer science, there are certain problems (&ldquo;problems&rdquo; there is defined academically, meaning
+something you have to solve) that simply do not have fast solutions, or at least none we&rsquo;ve been able to discover. These
+problems - called <a href="https://en.wikipedia.org/wiki/NP-complete">NP-complete</a> - can be solved, but as the complexity of
+them grow, the time to solve them exponentially grows.</p>
+
+<p>An example of an NP-complete problem is the <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">&ldquo;Traveling Salesman&rdquo;</a>
+problem, where given cities and distances between each city, find the shortest possible route that goes to each city
+only once and then returns to the starting city. While this can be solved (as Google has proven), the time it takes to
+do so grows with the number of cities involved.</p>
+
+<h3>Partitioning (Without Hard Drives)</h3>
+
+<p>My specific NP-complete problem for my team balancing situation is the <a href="https://en.wikipedia.org/wiki/Partition_problem">Partition Problem</a>,
+in which you are given a list of random numbers, and you need to put them into groups such that each group has a (mostly)
+equal sum. So, say I have the following numbers:</p>
+<pre class="highlight text">[1,2,4,4,2,3]
+</pre>
+<p>And I want to split them into two groups with roughly equal sums. I need my program to do it so this is the solution:</p>
+<pre class="highlight text">[4,3,1] [4,2,2]
+</pre>
+<p>Which gives one group a sum of 8, and the other 8 as well. (There are other solutions, but we&rsquo;ll pick this one.)</p>
+
+<h3>Back to Teams, Please</h3>
+
+<p>So, how is this relevant to what I was doing? Well, it was very relevant. Each player in Gather has a &ldquo;score&rdquo; (and rank)
+based on quite a few factors: K/D ratio, games played, win/loss ratio, classes picked, etc. This score determines their
+overall rank in the Gather system, and allows me to do team balancing. Prior to this solution, to do balancing, I was
+just sorting the players in the upcoming match by their score, and then looping through them, alternating which team
+they went to. So, rank #1 to red, #2 to blue, #3 red, and so on.</p>
+
+<p>The problem was that this didn&rsquo;t really give even matches; the first team always had #1 and #3, and therefore always had
+the upper hand. So I adjusted it to do #1 red, #2/3 blue, #4/5 red, #6/7 blue, etc. This worked slightly better, but
+still had a sum difference that sometimes crept over 10% of the total (read: could be better).</p>
+
+<p>So I went to digging. And that&rsquo;s when I found the partition problem was the answer.</p>
+
+<h3>Getting Greedy</h3>
+
+<p>One of the proposed solutions to the partition problem is the &ldquo;greedy approximation&rdquo; algorithm, is where you iterate
+through the array, and assign the current item to whichever subset has the smaller sum.</p>
+
+<p>For an example, let&rsquo;s go back to our numbers list. After sorting, you&rsquo;d get this:</p>
+<pre class="highlight text">[4,4,3,2,2,1]
+</pre>
+<p>Then you&rsquo;d do the iteration, and after your first two steps, you&rsquo;d have:</p>
+<pre class="highlight text">[4] [4]   (4 sum in each)
+</pre>
+<p>Then the next would go:</p>
+<pre class="highlight text">[4,3] [4]   (7 in first, 4 in second)
+</pre>
+<p>And so on:</p>
+<pre class="highlight text">[4,3] [4,2]       (7/6)
+[4,3] [4,2,2]     (7/8)
+[4,3,1] [4,2,2]   (8/8)
+</pre>
+<p>Boom! We&rsquo;ve now got even sums!</p>
+
+<h3>Edge Cases</h3>
+
+<p>So, this works great for my team balancing - I can just sort the current queue of players by score, then do the
+algorithm to split them into separate teams. However, there was a flaw: this algorithm doesn&rsquo;t separate the two teams
+necessarily into equal sized groups; it just tries to get them as close as possible. So, in some cases, like below,
+you&rsquo;d end up with one team having 6 or 7 people, and the other 3:</p>
+<pre class="highlight text">The set of:
+[8,4,3,2,1,1]
+
+Ends up as:
+[8,1] [4,3,2,1]  (9/10)
+</pre>
+<p>This, obviously, is a problem, since the point of the balancing system was to get close teams in score, for sure, but
+definitely <em>not</em> uneven teams! So, I introduced a slight tweak to the algorithm: once one team had the maximum number
+of players (which was the total # of players divided by two), then just stick all the remaining players that haven&rsquo;t
+been placed into the other team.</p>
+
+<p>On first thought, you&rsquo;d think that would unbalance the teams; however, it&rsquo;s not really the case. Think of it this way:
+The remaining people that get dumped into the smaller-sized team usually have lower scores, so they won&rsquo;t add much to the
+sum of the smaller-sized team. However, the smaller-sized team has higher-scoring individuals in it - which is why it
+is smaller! So it all evens out in the end.</p>
+
+<p>In fact, it really does. Differences in scores between the teams now average at about 3% of the total score of the team,
+which is <em>far</em> better than before!</p>
+
+<p>Not to mention, we got to do some cool science while we were at it. Even teams, rejoice!</p>
+
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'splittingredcom'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </section>
+
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'splittingredcom'; // required: replace example with your forum shortname
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+  }());
+  </script>
+
+
+      <footer>
+        <p>&copy; 2010-2013 <a href="mailto:&#115;&#112;&#108;&#105;&#116;&#116;&#105;&#110;&#103;&#114;&#101;&#100;@&#103;&#109;&#97;&#105;&#108;.&#99;&#111;&#109;">shaun mccormick</a>. all rights reserved.</p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix-f7763733.js" type="text/javascript"></script>
+
+  </body>
+</html>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-13101242-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
