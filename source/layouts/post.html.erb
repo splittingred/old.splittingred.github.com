@@ -5,7 +5,7 @@
     <h1><%= current_page.title %></h1>
     <div class="meta">
       <time><%= current_page.date.strftime('%b %e, %Y') %> </time>
-      <span class="comments">(<a href="<%= current_page.url %>#disqus_thread"></a>)</span>
+      <span class="comments">(<a href="<%= current_page.url %>#disqus_thread" data-disqus-identifier="<%= current_page.url %>"></a>)</span>
       <!--<span class="tags">Tags: <%= current_page.tags.join(', ') %></span>-->
     </div>
 
