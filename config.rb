@@ -49,10 +49,10 @@ set :js_dir, 'assets/js'
 set :images_dir, 'assets/images'
 
 activate :blog do |blog|
-  blog.prefix     = 'posts/'
+  blog.prefix     = ''
   blog.layout     = 'post'
   blog.permalink  = ':year/:month/:day/:title'
-  blog.sources    = 'post/:title.html'
+  blog.sources    = ['posts/:year/:month/:title.html']
   blog.default_extension = '.md'
   blog.taglink    = 'tags/:tag'
 end

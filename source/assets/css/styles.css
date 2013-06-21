@@ -287,3 +287,15 @@ article p.teaser {
     text-align: center;
 }
 .clear { clear: both; }
+
+.post h1 {
+    margin-bottom: 0;
+
+}
+.meta {
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+.meta time {
+    font-style:italic;
+}
